@@ -1,0 +1,155 @@
+<div ng-show="termDetails.found">
+
+    <div style="margin-left: 30px; padding-top: 12px">
+
+        <div class="panel panel-default" style="border: 2px solid #8cacbb;">
+          <div class="panel-heading" style="background-color: #ffffff;">
+              <h4>{{termName}}</h4>
+          </div>
+
+            <table class="term">
+                <tr>
+                    <td style="font-weight: bold; vertical-align: text-top">Definition:</td>
+                    <td ng-bind-html="termDetails.definition"></td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; white-space: nowrap;">Canonical units:</td>
+                    <td ng-bind-html="termDetails.canonicalUnits"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+    <div style="margin-left: 30px; padding-top: 12px">
+
+        <h4>Links and mappings in semantic repositories:</h4>
+
+        <!--  TODO factor out common stuff -->
+
+        <div style="display: inline-block; vertical-align: top">
+
+            <table class="links2">
+
+                <tr>
+                    <th style="text-align: center; font-weight: bold; background-color: beige">
+                        <a target="_blank" ng-href="{{cfsnConfig.orr.website}}">MMI ORR</a>
+                    </th>
+                </tr>
+                <tr>
+                    <td style="padding: 20px">
+
+                        <div class="btn-toolbar btn-group-xs">
+                            <span style="font-weight: bold">Term URI:</span>
+                            <a class="btn btn-default fa fa-external-link" target="_blank" ng-href="{{externalLink}}">{{externalLink}}</a>
+                        </div>
+
+                        <div class="btn-toolbar btn-group-xs">
+                            <span style="font-weight: bold">Formats:</span>
+                            <a style="padding-left: 10px" class="fa fa-external-link" target="_blank" ng-href="{{externalLink + '?form=rdf'}}">rdf</a>
+                            <a style="padding-left: 10px" class="fa fa-external-link" target="_blank" ng-href="{{externalLink + '?form=json'}}">json</a>
+                            <a style="padding-left: 10px" class="fa fa-external-link" target="_blank" ng-href="{{externalLink + '?form=n3'}}">n3</a>
+                        </div>
+
+                        <div style="padding-top: 20px">
+                            <div style="font-weight: bold; padding-bottom: 12px">Mappings:</div>
+
+                            <div style="margin-left: 10px">
+                                <div ng-repeat="pred in mappingPredicates">
+                                    <div>
+                                        &mdash; {{pred.label}}
+                                        <span ng-hide="mappingResults.orr[pred.predicate].searching">
+                                            ({{mappingResults.orr[pred.predicate].length}})
+                                        </span>
+                                        <span ng-show="mappingResults.orr[pred.predicate].searching"
+                                                class="loading">
+                                        </span>
+                                    </div>
+                                    <ul>
+                                        <li ng-repeat="object in mappingResults.orr[pred.predicate]">
+                                            <div ng-bind-html="object">
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+
+        <div style="display: inline-block; vertical-align: top">
+
+            <table class="links2" ng-show="nercExternalLink">
+
+                <tr>
+                    <th style="text-align: center; font-weight: bold; background-color: beige">
+                        <a target="_blank" ng-href="{{cfsnConfig.nvs.website}}">NERC NVS</a>
+                    </th>
+                </tr>
+                <tr>
+                    <td style="padding: 20px">
+
+                        <div class="btn-toolbar btn-group-xs">
+                            <span style="font-weight: bold">Term URI:</span>
+                            <a class="btn btn-default fa fa-external-link" target="_blank" ng-href="{{nercExternalLink}}">{{nercExternalLink}}</a>
+                        </div>
+
+                        <div class="btn-toolbar btn-group-xs">
+                            <span style="font-weight: bold">Formats:</span>
+                            <a style="padding-left: 10px" class="fa fa-external-link" target="_blank" ng-href="{{nercExternalLink}}">rdf</a>
+                        </div>
+
+                        <div style="padding-top: 20px">
+                            <div style="font-weight: bold; padding-bottom: 12px">Mappings:</div>
+
+                            <div style="margin-left: 10px">
+                                <div ng-repeat="pred in mappingPredicates">
+                                    <div>
+                                        &mdash; {{pred.label}}
+                                        <span ng-hide="mappingResults.nvs[pred.predicate].searching">
+                                            ({{mappingResults.nvs[pred.predicate].length}})
+                                        </span>
+                                        <span ng-show="mappingResults.nvs[pred.predicate].searching"
+                                                class="loading">
+                                        </span>
+                                    </div>
+                                    <ul>
+                                        <li ng-repeat="object in mappingResults.nvs[pred.predicate]">
+                                            <div ng-bind-html="object">
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<div ng-show="!errors.any() && !termDetails.searching && !termDetails.found">
+    <h3>Inexistent standard name: <span style="color: darkred">{{termName}}</span></h3>
+    <h4>
+        Perform a search with this string:
+        <a style="color: darkred" class="glyphicon glyphicon-search" ng-href="#/search/{{termName}}">
+            {{termName}}</a>
+    </h4>
+</div>
+
+<div ng-show="termDetails.searching">
+    <h3>Searching ...</h3>
+</div>

@@ -1,0 +1,250 @@
+/* app css stylesheet */
+
+body {
+  padding: 20px;
+}
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
+
+.menu:before {
+  content: "[";
+}
+
+.menu:after {
+  content: "]";
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li:before {
+  content: "|";
+  padding-right: 0.3em;
+}
+
+.menu > li:nth-child(1):before {
+  content: "";
+  padding: 0;
+}
+
+
+
+.gridStyle {
+    border: 1px solid rgb(212,212,212);
+    width: 100%;
+    height: 700px;
+}
+.ngRow:hover { background-color: #f3fcff !important; }
+.ngRow.selected {
+  background-color: #bdf0ed;
+}
+
+
+table.uri {
+    background-color: #ffffff;
+    border-spacing: 0px;
+    border-collapse: collapse;
+    border: 1px solid #8cacbb;
+}
+table.uri th {
+    padding: 8px;
+    border: 1px solid #8cacbb;
+    background-color: #dee7ec;
+}
+table.uri td {
+  padding: 8px;
+  border: 1px solid #8cacbb;
+}
+table.uri tr:hover { background-color: #f3fcff !important; }
+
+div.urititle {
+    padding: 8px;
+    font-size: 2em;
+    /*text-align: center;*/
+    /*border: 1px solid #8cacbb;*/
+    /*background-color: #ecf5fa;*/
+}
+
+.loading {
+    background-image: url(../img/loading.gif);
+    background-repeat: no-repeat;
+    padding-left: 20px;
+}
+
+div.status {
+    position:absolute;
+    top:2px;
+    width:20em;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    font-size: smaller;
+    background-color: #fffdf4;
+    /*border: 1px solid #8cacbb;*/
+    padding: 3px;
+}
+
+
+table.term {
+    background-color: #ffffff;
+    border-spacing: 0px;
+    border-collapse: collapse;
+    /*border: 1px solid #8cacbb;*/
+}
+table.term th {
+    padding: 8px;
+    /*border: 1px solid #8cacbb;*/
+    background-color: #dee7ec;
+}
+table.term td {
+  padding: 8px;
+  /*border: 1px solid #8cacbb;*/
+}
+
+
+table.links {
+    font-size: x-small;
+    /*border: 1px solid #8cacbb;*/
+}
+table.links th {
+    background-color: #dee7ec;
+    height: 5px;
+}
+table.links td {
+  padding: 2px;
+}
+
+
+table.links2 {
+    font-size: small;
+    border-spacing: 20px;
+    border: 1px solid #8cacbb;
+}
+table.links2 th {
+    padding: 5px;
+}
+table.links2 td {
+    padding: 5px;
+}
+table.links2 tr {
+    border-spacing: 20px;
+    border: 1px solid #8cacbb;
+    margin: 30px !important;
+}
+
+
+a.stdname {
+    color: steelblue;
+}
+
+a.search {
+    color: seagreen;
+}
+
+input.search {
+    width: 500px !important;
+    font-size: small;
+}
+
+input.pageSize {
+    width: 50px !important;
+    font-size: small;
+}
+
+
+table.mynav {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #8cacbb;
+}
+table.mynav th {
+    vertical-align: middle;
+    background-color: aliceblue;
+    border: #bdf0ed
+}
+table.mynav td {
+    padding-left: 5px;
+    background-color: aliceblue;
+}
+
+
+/* when using dropdown
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+li.margin { margin-left: 10px; }
+ul li { margin-left: 10px; }
+*/
+
+
+input.invalid {
+    color: red;
+}
+
+label.searchMode {
+    padding-left: 2px;
+    color: #8aa8af;
+    font-size: small;
+    font-weight: inherit;
+}
+
+table.flat {
+    width: 100%;
+    font-size: small;
+    border-spacing: 20px;
+    border: 1px solid #8cacbb;
+}
+table.flat th {
+    padding: 5px;
+    border: 1px solid #8cacbb;
+    background-color: #f3fcff;
+}
+table.flat td {
+    padding: 5px;
+    border: 1px solid #8cacbb;
+}
+table.flat tr {
+    border-spacing: 20px;
+    border: 1px solid #8cacbb;
+    margin: 30px !important;
+}
+
+label.category {
+    padding-left: 2px;
+    padding-right: 8px;
+    color: #5c7077;
+    /*font-size: small;*/
+    font-weight: inherit;
+}
+
+.counter {
+    width: 21px;
+    color: #9db6bd;
+    text-align: right;
+    font-size: small;
+    padding-right: 10pt;
+}
+
+div.generalInfo {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: smaller;
+    font-style: oblique;
+    cursor: pointer;
+}
+
+td.generalInfoSect {
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 1px solid #8cacbb;
+}
+
+.highlight {
+    background: yellow;
+}

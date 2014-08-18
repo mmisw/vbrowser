@@ -1,0 +1,116 @@
+<div>
+
+    <h5></h5>
+    <div style="margin-left: 30px">
+
+        <table class="mynav" ng-show="selCategories">
+            <tr>
+                <td>
+                <table>
+                    <tr style="height: 35px; vertical-align: middle;">
+                        <th><label class="category">Categories:</label></th>
+                        <td ng-repeat="cat in selCategories">
+                            <label class="category" title="{{cat.searchString}}">
+                                <input type="checkbox" ng-model="cat.selected"> {{cat.label}}
+                            </label>
+                        </td>
+                    </tr>
+                </table>
+                </td>
+                <td class="counter">{{numberAfterCategories}}</td>
+            </tr>
+        </table>
+        <!--<pre>{{selCategories | json}}</pre>-->
+
+        <table class="mynav">
+            <thead>
+
+            <tr>
+                <th>
+                    <table>
+                        <tr>
+                            <td style="width: 21px">
+                                  <span class="glyphicon glyphicon-search"></span>
+                            </td>
+                            <td>
+
+                                  <input type="text" class="search form-control" ng-class="{invalid: invalidSearchField()}" placeholder="Global search"
+                                          ng-model="termListFilter" ng-keypress="searchKeyPressed($event)"
+                                          focus-on="activation">
+                                  <div ng-invalid ng-show="searchRegexError">{{searchRegexError}}</div>
+                            </td>
+                            <td>
+                              <label class="checkbox searchMode"><input type="radio" name="searchMode" value="Literal" ng-model="searchMode">
+                                Literal
+                              </label>
+                            </td>
+                            <td>
+                              <label class="checkbox searchMode"><input type="radio" name="searchMode" value="Glob" ng-model="searchMode">
+                                Glob
+                              </label>
+                            </td>
+                            <td>
+                              <label class="checkbox searchMode"><input type="radio" name="searchMode" value="Regex" ng-model="searchMode">
+                                Regex
+                              </label>
+                            </td>
+                        </tr>
+                    </table>
+                </th>
+
+<!--
+                <th style="width: 100px">
+                        <label style="color: #a1bfc6; font-size: small">Total: {{totalTerms}}</label>
+                </th>
+-->
+
+                <th style="width: 70px">
+                        <label style="color: #a1bfc6; font-size: small" for="pageSizeEnter">Page size:</label>
+                </th>
+                <th style="width: 50px">
+                    <input id="pageSizeEnter" type="text" class="form-control ng-valid pageSize"
+                          ng-model="pageSizeEnter" ng-keypress="pageSizeKeyPressed($event)">
+                </th>
+
+                <th style="width: 100px">
+                    <button type="submit" class="btn btn-default btn-xs" ng-click="showAll()">Show all</button>
+                </th>
+
+                <!--<td class="counter">{{numberAfterGlobalFilter}}</td>-->
+
+            </tr>
+            </thead>
+        </table>
+
+        <table ng-show="termList.length > 0"
+               tr-ng-grid=""
+               items="termList"
+               selection-mode="None"
+               filter-by="termListFilter4grid"
+               page-items="pageSize"
+               enable-filtering="false"
+        >
+            <thead>
+                <!--<tr> <th colspan="3"><span tr-ng-grid-pager=""></span></th> </tr>-->
+                <tr>
+                    <th field-name="name"            enable-filtering="true"></th>
+                    <th field-name="definition"      enable-filtering="true"></th>
+                    <th field-name="canonicalUnits"  enable-filtering="true" display-name="Units" style="white-space: nowrap;"></th>
+                </tr>
+            </thead>
+
+            <tr>
+                <td field-name="name">
+                    <div ng-bind-html="gridItem.name | htmlifyTerm:termListFilter"></div>
+                </td>
+                <td field-name="definition">
+                    <div ng-bind-html="gridItem.definition | htmlifyDefinition:termListFilter"></div>
+                </td>
+                <td field-name="canonicalUnits" style="white-space: nowrap;">
+                    <div ng-bind-html="gridItem.canonicalUnits"></div>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>
