@@ -2,7 +2,7 @@
 
 (function() {
 
-angular.module('cfsn.main.controller', ['trNgGrid'])
+angular.module('scv.main.controller', ['trNgGrid'])
 
 .run(['$rootScope', 'dataService', 'Works', function($rootScope, dataService,  Works) {
         getGeneralInfo($rootScope, dataService);
@@ -15,7 +15,7 @@ angular.module('cfsn.main.controller', ['trNgGrid'])
 
         Works.works.removeAll();
         $scope.works = Works.works;
-        $scope.selCategories = _.map(cfsnConfig.categories, function(cat) {
+        $scope.selCategories = _.map(scvConfig.categories, function(cat) {
             return {label: cat.label, searchString: cat.searchString};
         });
         $scope.totalTerms = 0;
@@ -229,7 +229,7 @@ function applyFilters($scope, termList) {
     if (selectedCategories.length > 0) {
         var allParts = [];
         _.each(selectedCategories, function(cat) {
-            var catDef = _.find(cfsnConfig.categories, {label: cat.label});
+            var catDef = _.find(scvConfig.categories, {label: cat.label});
             allParts = allParts.concat(catDef.searchString.split(/\s+/));
         });
         allParts = _.uniq(allParts);

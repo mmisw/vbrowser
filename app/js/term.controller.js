@@ -2,7 +2,7 @@
 
 (function() {
 
-angular.module('cfsn.term.controller', ['trNgGrid'])
+angular.module('scv.term.controller', ['trNgGrid'])
 
     .controller('TermCtrl', ['$scope', '$routeParams', 'dataService', 'Works',
         function ($scope, $routeParams, dataService, Works) {
@@ -45,7 +45,7 @@ function getTermDetails($scope, dataService) {
             }
 
             if (termDetails) {
-                var termUri = cfsnConfig.orr.snPrefix + $scope.termName;
+                var termUri = scvConfig.orr.snPrefix + $scope.termName;
                 $scope.externalLink = termUri;
                 $scope.termDetails = {
                     found:          true,
@@ -82,9 +82,9 @@ function getNercTermUri($scope, dataService) {
 }
 
 function prepareMappings($scope) {
-    $scope.cfsnConfig = cfsnConfig;
+    $scope.scvConfig = scvConfig;
 
-    $scope.mappingPredicates = cfsnConfig.mapping.predicates;
+    $scope.mappingPredicates = scvConfig.mapping.predicates;
 
     $scope.mappingResults = {orr: {}, nvs: {}};
     _.each($scope.mappingPredicates, function(pred) {
@@ -98,9 +98,9 @@ function prepareMappings($scope) {
 }
 
 function getMappings($scope, dataService, termUri, repo) {
-    var sparqlEndpoint = cfsnConfig[repo].sparqlEndpoint;
+    var sparqlEndpoint = scvConfig[repo].sparqlEndpoint;
     var workId = $scope.works.add("making mapping queries");
-    _.each(cfsnConfig.mapping.predicates, function(pred) {
+    _.each(scvConfig.mapping.predicates, function(pred) {
         $scope.works.update(workId, "making mapping query for " + pred.label);
         $scope.mappingResults[repo][pred.predicate].searching = true;
         dataService.getMappings(termUri, pred.queryTemplate, sparqlEndpoint, {

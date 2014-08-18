@@ -2,7 +2,7 @@
 
 (function() {
 
-angular.module('cfsn.data', []).factory('dataService', ['$http', function($http) {
+angular.module('scv.data', []).factory('dataService', ['$http', function($http) {
     return {
         getGeneralInfo:   function(fns) { getGeneralInfo($http, fns); },
         getTermList:      function(fns) { getTermList($http, fns); },
@@ -56,11 +56,11 @@ function getGeneralInfo($http, fns) {
 
     // todo maybe also retrieve some general info from NVS.
 
-    var query = cfsnConfig.orr.generalInfoQuery;
+    var query = scvConfig.orr.generalInfoQuery;
 
     logQuery(query);
 
-    $http.get(cfsnConfig.orr.sparqlEndpoint, {params: {query: query}})
+    $http.get(scvConfig.orr.sparqlEndpoint, {params: {query: query}})
         .success(function (data, status, headers, config) {
             console.log("getGeneralInfo: data= ", data);
             var names = data.names;
@@ -95,10 +95,10 @@ function getTermList($http, fns) {
         return;
     }
 
-    var query = cfsnConfig.orr.termListQuery;
+    var query = scvConfig.orr.termListQuery;
     logQuery(query);
 
-    $http.get(cfsnConfig.orr.sparqlEndpoint, {params: {query: query}})
+    $http.get(scvConfig.orr.sparqlEndpoint, {params: {query: query}})
         .success(function (data, status, headers, config) {
             //console.log("getTermList: data= ", data);
 
@@ -140,12 +140,12 @@ function getTermDetails($http, termName, fns) {
         return;
     }
 
-    var termUri = '<' + cfsnConfig.orr.snPrefix + termName + '>';
-    var query = cfsnConfig.orr.termQueryTemplate.replace(/{{name}}/g, termUri);
+    var termUri = '<' + scvConfig.orr.snPrefix + termName + '>';
+    var query = scvConfig.orr.termQueryTemplate.replace(/{{name}}/g, termUri);
 
     logQuery(query);
 
-    $http.get(cfsnConfig.orr.sparqlEndpoint, {params: {query: query}})
+    $http.get(scvConfig.orr.sparqlEndpoint, {params: {query: query}})
         .success(function (data, status, headers, config) {
             console.log("getTermDetails: data= ", data);
             //var names = data.names;
@@ -181,10 +181,10 @@ function getNercTermUri($http, termName, fns) {
         return;
     }
 
-    var query = cfsnConfig.nvs.uriQueryTemplate.replace(/{{stdname}}/g, termName);
-    console.log("making query: " + query + "\nagainst: " +cfsnConfig.nvs.sparqlEndpoint);
+    var query = scvConfig.nvs.uriQueryTemplate.replace(/{{stdname}}/g, termName);
+    console.log("making query: " + query + "\nagainst: " +scvConfig.nvs.sparqlEndpoint);
 
-    $http.get(cfsnConfig.nvs.sparqlEndpoint, {params: {query: query, output: 'json'}})
+    $http.get(scvConfig.nvs.sparqlEndpoint, {params: {query: query, output: 'json'}})
         .success(function (data, status, headers, config) {
             //console.log("getNercTermUri: data= ", data);
             // TODO more appropriate check of the response

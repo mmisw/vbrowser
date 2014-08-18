@@ -1,4 +1,4 @@
-var cfsnConfig = {
+var scvConfig = {
 
     orr: {
         website:        'http://mmisw.org/',
@@ -16,23 +16,23 @@ var cfsnConfig = {
             "}",
 
         termListQuery:
-            "prefix cfsn: <http://mmisw.org/ont/cf/parameter/>\n" +
+            "prefix scv: <http://mmisw.org/ont/cf/parameter/>\n" +
             "prefix skos: <http://www.w3.org/2004/02/skos/core#>\n" +
             "select distinct ?name ?definition ?canonicalUnits\n" +
             "where {\n" +
-            //"  ?name a cfsn:Standard_Name.\n" +  <- subsumed by next condition
-            "  cfsn:parameter skos:narrower ?name.\n" +
+            //"  ?name a scv:Standard_Name.\n" +  <- subsumed by next condition
+            "  scv:parameter skos:narrower ?name.\n" +
             "  OPTIONAL { ?name skos:definition      ?definition }\n" +
-            "  OPTIONAL { ?name cfsn:canonical_units ?canonicalUnits }\n" +
+            "  OPTIONAL { ?name scv:canonical_units ?canonicalUnits }\n" +
             "} order by ?name",
 
         termQueryTemplate:
-            "prefix cfsn: <http://mmisw.org/ont/cf/parameter/>\n" +
+            "prefix scv: <http://mmisw.org/ont/cf/parameter/>\n" +
             "prefix skos: <http://www.w3.org/2004/02/skos/core#>\n" +
             "select distinct ?definition ?canonicalUnits where {\n" +
-            "  cfsn:parameter skos:narrower {{name}}.\n" +
+            "  scv:parameter skos:narrower {{name}}.\n" +
             "  OPTIONAL { {{name}} skos:definition      ?definition }\n" +
-            "  OPTIONAL { {{name}} cfsn:canonical_units ?canonicalUnits }\n" +
+            "  OPTIONAL { {{name}} scv:canonical_units ?canonicalUnits }\n" +
             "}"
     },
 

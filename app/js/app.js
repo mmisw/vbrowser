@@ -1,15 +1,15 @@
 'use strict';
 
-angular.module('cfsn', [
+angular.module('scv', [
         //'ui.bootstrap',
         'ngRoute',
         'ngSanitize',
         'ngCookies',
-        'cfsn.data',
-        'cfsn.filters',
-        'cfsn.main.controller',
-        'cfsn.term.controller',
-        'cfsn.flat.controller'
+        'scv.data',
+        'scv.filters',
+        'scv.main.controller',
+        'scv.term.controller',
+        'scv.flat.controller'
     ])
 
     .value('version', '0.1.5')
@@ -115,7 +115,7 @@ angular.module('cfsn', [
             Works.errors.removeAll();
         });
 
-        if ($cookies.mmisw_cfsn_noga) {
+        if ($cookies.mmisw_scv_noga) {
             console.log("not enabling ga per cookie");
             return;
         }

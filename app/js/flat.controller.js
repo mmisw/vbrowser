@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('cfsn.flat.controller', [])
+angular.module('scv.flat.controller', [])
     .controller('FlatCtrl', ['$scope', 'dataService', 'Works',
         function ($scope, dataService, Works) {
             Works.works.removeAll();
