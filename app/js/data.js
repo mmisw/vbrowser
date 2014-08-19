@@ -146,12 +146,15 @@ function getTermDetails($http, termName, fns) {
             var rows = data.values;
 
             if (rows.length == 1) {
-                var definition = rows[0][0];
-                var canonicalUnits = rows[0][1];
-                var termDetails = {
-                    definition:     definition ? vutil.cleanQuotes(definition) : "",
-                    canonicalUnits: canonicalUnits ? vutil.cleanQuotes(canonicalUnits) : ""
-                };
+
+                var termDetails = {term: termUri};
+
+                var exceptFirst = _.clone(scvConfig.termList.fields);
+                exceptFirst.shift();
+                console.log("exceptFirst= ", exceptFirst);
+                _.each(exceptFirst, function(ff, idx) {
+                    termDetails[ff.name] = rows[0][idx] ? vutil.cleanQuotes(rows[0][idx]) : "";
+                });
                 cache.termDict[termName] = termDetails;
                 fns.gotTermDetails(undefined, termDetails);
             }
@@ -171,17 +174,17 @@ function getMappings($http, termUri, queryTemplate, sparqlEndpoint, fns) {
 
     var query = queryTemplate;
     query = query.replace(/{{termUri}}/g, termUri);
-    console.log("making query: " + query + "\nagainst: " +sparqlEndpoint);
+    //console.log("making query: " + query + "\nagainst: " +sparqlEndpoint);
 
     $http.get(sparqlEndpoint, {params: {query: query, output: 'json'}, cache: true})
         .success(function (data, status, headers, config) {
-            console.log("getMappings: data= ", data);
+            //console.log("getMappings: data= ", data);
 
             // TODO in general, more generic check/parse of the response.
 
             var objects;
             if (data.results && data.results.bindings) {
-                console.log("getMappings: data.results.bindings= ", data.results.bindings);
+                //console.log("getMappings: data.results.bindings= ", data.results.bindings);
                 objects = _.map(data.results.bindings, function(a) { return a.object.value });
             }
             else {

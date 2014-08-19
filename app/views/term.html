@@ -8,13 +8,9 @@
           </div>
 
             <table class="term">
-                <tr>
-                    <td style="font-weight: bold; vertical-align: text-top">Definition:</td>
-                    <td ng-bind-html="termDetails.definition"></td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold; white-space: nowrap;">Canonical units:</td>
-                    <td ng-bind-html="termDetails.canonicalUnits"></td>
+                <tr ng-repeat="field in cfg.termList.fields" >
+                    <td style="font-weight: bold; vertical-align: text-top">{{field.name}}:</td>
+                    <td ng-bind-html="termDetails[field.name]"></td>
                 </tr>
             </table>
         </div>

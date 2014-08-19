@@ -91,27 +91,11 @@
                enable-filtering="false"
         >
             <thead>
-                <tr>
-<th field-name="term" enable-filtering="true"></th>
-<th field-name="definition" enable-filtering="true"></th>
-<th field-name="reference" enable-filtering="true"></th>
-<th field-name="units" enable-filtering="true"></th>
+                <tr>@@headerFields
                 </tr>
             </thead>
 
-            <tr>
-<td field-name="term">
-  <div ng-bind-html="gridItem.term | htmlifyTerm:termListFilter"></div>
-</td>
-<td field-name="definition">
-  <div ng-bind-html="gridItem.definition | htmlifyDefinition:termListFilter"></div>
-</td>
-<td field-name="reference">
-  <div ng-bind-html="gridItem.reference"></div>
-</td>
-<td field-name="units">
-  <div ng-bind-html="gridItem.units"></div>
-</td>
+            <tr>@@valueFields
             </tr>
         </table>
     </div>

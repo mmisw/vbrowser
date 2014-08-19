@@ -3,8 +3,8 @@
 
 angular.module('scv.term.controller', ['trNgGrid'])
 
-    .controller('TermCtrl', ['$scope', '$routeParams', 'dataService', 'Works',
-        function ($scope, $routeParams, dataService, Works) {
+    .controller('TermCtrl', ['$scope', '$routeParams', 'cfg', 'dataService', 'Works',
+        function ($scope, $routeParams, cfg, dataService, Works) {
 
             Works.works.removeAll();
             $scope.works = Works.works;
@@ -16,12 +16,12 @@ angular.module('scv.term.controller', ['trNgGrid'])
 
             prepareMappings($scope);
 
-            getTermDetails($scope, dataService);
+            getTermDetails($scope, cfg, dataService);
         }])
     ;
 
 
-function getTermDetails($scope, dataService) {
+function getTermDetails($scope, cfg, dataService) {
     var workId = $scope.works.add("making term details query");
     var htmlify = true;
 
@@ -44,14 +44,27 @@ function getTermDetails($scope, dataService) {
             }
 
             if (termDetails) {
+                console.log('termDetails', termDetails);
                 var termUri = scvConfig.voc.prefix + $scope.termName;
                 $scope.externalLink = termUri;
-                $scope.termDetails = {
-                    found:          true,
-                    definition:     processContent(termDetails.definition),
-                    canonicalUnits: processContent(termDetails.canonicalUnits),
-                    orrUri:        '<a href="' +$scope.externalLink+ '">' + $scope.externalLink + '</a>'
+
+
+                var item = {
+                    found:   true,
+                    orrUri:  '<a href="' +$scope.externalLink+ '">' + $scope.externalLink + '</a>'
                 };
+
+                _.each(cfg.termList.fields, function(field, idx) {
+                   item[field.name] = processContent(termDetails[field.name]);
+                });
+
+                $scope.termDetails = item;
+//                $scope.termDetails = {
+//                    found:          true,
+//                    definition:     processContent(termDetails.definition),
+//                    canonicalUnits: processContent(termDetails.canonicalUnits),
+//                    orrUri:        '<a href="' +$scope.externalLink+ '">' + $scope.externalLink + '</a>'
+//                };
                 getMappings($scope, dataService, termUri, 'orr');
             }
             else {
@@ -88,7 +101,7 @@ function getMappings($scope, dataService, termUri, repo) {
                     return;
                 }
 
-                console.log("GOT objects", objects, "for predicate", pred.label);
+                //console.log("GOT objects", objects, "for predicate", pred.label);
                 $scope.mappingResults[repo][pred.predicate] = _.map(objects, function(o) {
                     return vutil.mkExternalLink4Uri(o, true);
                 });
