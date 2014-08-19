@@ -1,6 +1,5 @@
-'use strict';
-
 (function() {
+'use strict';
 
 angular.module('scv.filters', [])
   .filter('interpolate', ['version', function(version) {

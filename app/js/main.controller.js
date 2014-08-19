@@ -1,6 +1,5 @@
-'use strict';
-
 (function() {
+'use strict';
 
 angular.module('scv.main.controller', ['trNgGrid'])
 
@@ -285,13 +284,7 @@ function getTermList($scope, dataService, then) {
 
         termList = applyFilters($scope, termList);
 
-        $scope.termList = _.map(termList, function(term) { // with htmlified or escaped uri's
-            return {
-                name:           term.name,
-                definition:     term.definition,
-                canonicalUnits: term.canonicalUnits
-            };
-        });
+        $scope.termList = termList;
         $scope.works.remove(workId);
         if (then) then();
     };

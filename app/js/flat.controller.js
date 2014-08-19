@@ -1,3 +1,4 @@
+(function() {
 'use strict';
 
 angular.module('scv.flat.controller', [])
@@ -57,3 +58,5 @@ angular.module('scv.flat.controller', [])
             getTermList($scope, dataService);
         }])
     ;
+
+})();

@@ -1,6 +1,5 @@
-'use strict';
-
 (function() {
+'use strict';
 
 angular.module('scv.term.controller', ['trNgGrid'])
 
@@ -45,7 +44,7 @@ function getTermDetails($scope, dataService) {
             }
 
             if (termDetails) {
-                var termUri = scvConfig.orr.snPrefix + $scope.termName;
+                var termUri = scvConfig.voc.prefix + $scope.termName;
                 $scope.externalLink = termUri;
                 $scope.termDetails = {
                     found:          true,
@@ -54,8 +53,6 @@ function getTermDetails($scope, dataService) {
                     orrUri:        '<a href="' +$scope.externalLink+ '">' + $scope.externalLink + '</a>'
                 };
                 getMappings($scope, dataService, termUri, 'orr');
-
-                getNercTermUri($scope, dataService);
             }
             else {
                 $scope.termDetails = {found: false};
@@ -66,33 +63,13 @@ function getTermDetails($scope, dataService) {
     });
 }
 
-function getNercTermUri($scope, dataService) {
-    var workId = $scope.works.add("making NVS query");
-    dataService.getNercTermUri($scope.termName, {
-        gotNercTermUri: function(error, termUri) {
-            $scope.works.remove(workId);
-            if (error) {
-                $scope.errors.add(error);
-                return;
-            }
-            $scope.nercExternalLink = termUri;
-            getMappings($scope, dataService, termUri, 'nvs');
-        }
-    });
-}
-
 function prepareMappings($scope) {
-    $scope.scvConfig = scvConfig;
-
     $scope.mappingPredicates = scvConfig.mapping.predicates;
 
-    $scope.mappingResults = {orr: {}, nvs: {}};
+    $scope.mappingResults = {orr: {}};
     _.each($scope.mappingPredicates, function(pred) {
         $scope.mappingResults.orr[pred.predicate] = [];
         $scope.mappingResults.orr[pred.predicate].searching = false;
-
-        $scope.mappingResults.nvs[pred.predicate] = [];
-        $scope.mappingResults.nvs[pred.predicate].searching = false;
     });
 
 }

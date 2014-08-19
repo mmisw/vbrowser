@@ -1,13 +1,11 @@
-'use strict';
-
 (function() {
+'use strict';
 
 angular.module('scv.data', []).factory('dataService', ['$http', function($http) {
     return {
         getGeneralInfo:   function(fns) { getGeneralInfo($http, fns); },
         getTermList:      function(fns) { getTermList($http, fns); },
         getTermDetails:   function(termName, fns) { getTermDetails($http, termName, fns); },
-        getNercTermUri:   function(termName, fns) { getNercTermUri($http, termName, fns); },
 
         getMappings:   function(termUri, queryTemplate, sparqlEndpoint, fns) {
                          getMappings($http, termUri, queryTemplate, sparqlEndpoint, fns); },
@@ -28,8 +26,9 @@ var cache = {
     nercDict: {}
 };
 
-function logQuery(query) {
-    console.log("making query: " + query);
+function logQuery(query, title) {
+    console.log("making query: " +(title ? title : '')+
+        "\n    " + query.replace(/\n/g, '\n    '));
 }
 
 /**
@@ -54,15 +53,13 @@ function getGeneralInfo($http, fns) {
         return;
     }
 
-    // todo maybe also retrieve some general info from NVS.
-
-    var query = scvConfig.orr.generalInfoQuery;
+    var query = scvConfig.orr.generalInfoQuery.replace(/{{voc\.uri}}/g, scvConfig.voc.uri);
 
     logQuery(query);
 
     $http.get(scvConfig.orr.sparqlEndpoint, {params: {query: query}})
         .success(function (data, status, headers, config) {
-            console.log("getGeneralInfo: data= ", data);
+            //console.log("getGeneralInfo: data= ", data);
             var names = data.names;
             var rows = data.values;
 
@@ -96,7 +93,8 @@ function getTermList($http, fns) {
     }
 
     var query = scvConfig.orr.termListQuery;
-    logQuery(query);
+    query = query.replace(/{{voc\.prefix}}/g, scvConfig.voc.prefix);
+    logQuery(query, 'termList');
 
     $http.get(scvConfig.orr.sparqlEndpoint, {params: {query: query}})
         .success(function (data, status, headers, config) {
@@ -108,22 +106,17 @@ function getTermList($http, fns) {
             cache.termDict = {};
 
             cache.termList = _.map(rows, function (e) {
-                var name           = vutil.cleanQuotes(e[0]);
-                var definition     = e[1] ? vutil.cleanQuotes(e[1]) : "";
-                var canonicalUnits = e[2] ? vutil.cleanQuotes(e[2]) : "";
+                var item = {};
 
-                var termName = vutil.getTermName(name);
+                _.each(scvConfig.termList.fields, function(ff, idx) {
+                    item[ff.name] = e[idx] ? vutil.cleanQuotes(e[idx]) : "";
+                });
 
-                cache.termDict[termName] = {
-                    definition:     definition,
-                    canonicalUnits: canonicalUnits
-                };
+                var termName = vutil.getTermName(e[0]);
 
-                return {
-                    name:           name,
-                    definition:     definition,
-                    canonicalUnits: canonicalUnits
-                };
+                cache.termDict[termName] = item;
+
+                return item;
             });
 
             fns.gotTermList(undefined, cache.termList);
@@ -140,8 +133,9 @@ function getTermDetails($http, termName, fns) {
         return;
     }
 
-    var termUri = '<' + scvConfig.orr.snPrefix + termName + '>';
+    var termUri = '<' + scvConfig.voc.prefix + termName + '>';
     var query = scvConfig.orr.termQueryTemplate.replace(/{{name}}/g, termUri);
+    query = query.replace(/{{voc\.prefix}}/g, scvConfig.voc.prefix);
 
     logQuery(query);
 
@@ -170,30 +164,6 @@ function getTermDetails($http, termName, fns) {
             }
         })
         .error(httpErrorHandler(fns.gotTermDetails));
-}
-
-function getNercTermUri($http, termName, fns) {
-
-    if (termName in cache.nercDict) {
-        //console.log("getNercTermUri", termName, "in cache");
-        var uri = cache.nercDict[termName].uri;
-        fns.gotNercTermUri(undefined, uri);
-        return;
-    }
-
-    var query = scvConfig.nvs.uriQueryTemplate.replace(/{{stdname}}/g, termName);
-    console.log("making query: " + query + "\nagainst: " +scvConfig.nvs.sparqlEndpoint);
-
-    $http.get(scvConfig.nvs.sparqlEndpoint, {params: {query: query, output: 'json'}})
-        .success(function (data, status, headers, config) {
-            //console.log("getNercTermUri: data= ", data);
-            // TODO more appropriate check of the response
-            var uri = data.results.bindings[0].uri.value;
-            //console.log("getNercTermUri: uri= ", uri);
-            cache.nercDict[termName] = {uri: uri};
-            fns.gotNercTermUri(undefined, uri);
-        })
-        .error(httpErrorHandler(fns.gotNercTermUri));
 }
 
 function getMappings($http, termUri, queryTemplate, sparqlEndpoint, fns) {

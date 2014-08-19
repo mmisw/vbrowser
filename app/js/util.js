@@ -161,14 +161,15 @@ var vutil = (function () {
     // removes the prefix
     function getTermName(name) {
         var termName = name.replace(/^<(.*)>$/, '$1');
-        if (termName.indexOf(scvConfig.orr.snPrefix) == 0) {
-            termName = termName.substring(scvConfig.orr.snPrefix.length);
+        var prefix = scvConfig.voc.prefix;
+        if (termName.indexOf(prefix) == 0) {
+            termName = termName.substring(prefix.length);
         }
         return termName;
     }
 
     function cleanQuotes(value) {
-        // \"Age of sea ice\" means...  -->  "Age of sea ice" means...
+        // \"foo bar\" etc...  -->  "foo bar" etc...
         value = value.replace(/\\"/g, '"');
         value = value.replace(/^"(.*)"$/, '$1');
         return value;

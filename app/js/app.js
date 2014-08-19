@@ -1,3 +1,4 @@
+(function() {
 'use strict';
 
 angular.module('scv', [
@@ -12,7 +13,9 @@ angular.module('scv', [
         'scv.flat.controller'
     ])
 
-    .value('version', '0.1.5')
+    .value('version', '0.0.1')
+
+    .run(startApp)
 
     .directive('appVersion', ['version', function(version) {
         return function(scope, elm, attrs) {
@@ -108,25 +111,31 @@ angular.module('scv', [
         }
     }])
 
-    .run(['$cookies', '$rootScope', '$location', '$window', 'Works', function($cookies, $rootScope, $location, $window, Works) {
-
-        $rootScope.$on('$routeChangeStart', function(event) {
-            // crear errors:
-            Works.errors.removeAll();
-        });
-
-        if ($cookies.mmisw_scv_noga) {
-            console.log("not enabling ga per cookie");
-            return;
-        }
-        if (/localhost:/.test($window.location.host)) {
-            console.log("not enabling ga on localhost");
-            return;
-        }
-        $rootScope.$on('$routeChangeSuccess', function(event) {
-            if ($window.ga) {
-                $window.ga('send', 'pageview', { page: $location.path() });
-            }
-        });
-    }])
 ;
+
+startApp.$inject = ['$cookies', '$rootScope', '$location', '$window', 'Works'];
+
+function startApp($cookies, $rootScope, $location, $window, Works) {
+    //console.log("startApp");
+    $rootScope.cfg = scvConfig;
+
+    $rootScope.$on('$routeChangeStart', function(event) {
+        // crear errors:
+        Works.errors.removeAll();
+    });
+
+    if ($cookies.mmisw_scv_noga) {
+        console.log("not enabling ga per cookie");
+        return;
+    }
+    if (/localhost:/.test($window.location.host)) {
+        console.log("not enabling ga on localhost");
+        return;
+    }
+    $rootScope.$on('$routeChangeSuccess', function(event) {
+        if ($window.ga) {
+            $window.ga('send', 'pageview', { page: $location.path() });
+        }
+    });
+}
+})();
