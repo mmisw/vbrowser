@@ -15,6 +15,8 @@ angular.module('scv', [
 
     .value('version', '0.0.1')
 
+    .constant('cfg', scvConfig)
+
     .run(startApp)
 
     .directive('appVersion', ['version', function(version) {

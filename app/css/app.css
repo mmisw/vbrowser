@@ -215,6 +215,11 @@ table.flat tr {
     margin: 30px !important;
 }
 
+table.flat .colNum0 {
+    width: 35%;
+    word-break: break-all;
+}
+
 label.category {
     padding-left: 2px;
     padding-right: 8px;

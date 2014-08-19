@@ -1,15 +1,15 @@
 <table class="flat">
     <thead>
         <tr>
-            <th style="width: 35%">Name</th>
-            <th>Definition</th>
-            <th style="width: 40px">Units</th>
+            <th ng-repeat="field in cfg.termList.fields" ng-class="{colNum0: $index == 0}">
+                {{field.name}}
+            </th>
         </tr>
     </thead>
 
     <tr ng-repeat="term in termList">
-        <td style="word-break: break-all;">{{term.name}}</td>
-        <td ng-bind-html="term.definition"></td>
-        <td>{{term.canonicalUnits}}</td>
+        <td ng-repeat="field in cfg.termList.fields" ng-class="{colNum0: $index == 0}"
+            ng-bind-html="term[field.name]">
+        </td>
     </tr>
 </table>
