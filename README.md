@@ -3,7 +3,7 @@ scv
 
 A SPARQL-driven vocabulary viewer
 
-** prototype **
+_**NOTE: preliminary**_
 
 
 ### Setup 
@@ -31,3 +31,11 @@ Hit CTRL-C to stop the server
 ```
 
 open [http://localhost:8080/app/](http://localhost:8080/app/)
+
+
+Some examples deployed:
+
+- http://mmisw.org/experimental/vrowser/ioos_param/
+- http://mmisw.org/experimental/vrowser/ooi_epe_science/
+- http://mmisw.org/experimental/vrowser/cf/
+
