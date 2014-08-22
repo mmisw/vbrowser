@@ -1,7 +1,7 @@
-scv
-===
+vrowser
+=======
 
-A SPARQL-driven vocabulary viewer
+A SPARQL-driven vocabulary browser
 
 _**NOTE: preliminary**_
 
