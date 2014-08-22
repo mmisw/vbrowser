@@ -1,10 +1,22 @@
 var gulp     = require('gulp');
+var gutil    = require('gulp-util');
 var replace  = require('gulp-replace');
 var _        = require('lodash');
 var fs       = require('fs');
 
-var cfg      = require('./config/ioos_param.js');
-//var cfg      = require('./config/cf.js');
+
+if (!gutil.env.config) {
+    gutil.log(gutil.colors.red("error:"), "missing config. Use --config ./config/someconfig.js");
+    process.exit(1);
+}
+
+var configFile = gutil.env.config;
+
+//if (configFile.indexOf('./') !== 0) configFile = './' + configFile;
+
+var cfg = require(configFile);
+
+gutil.log("using config " +configFile);
 
 var headerFields = (function(){
     var lis = _.map(cfg.termList.fields, function(field) {
