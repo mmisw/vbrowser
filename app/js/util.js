@@ -211,6 +211,6 @@ var vutil = (function () {
         getTermName:         getTermName,
         cleanQuotes:         cleanQuotes,
         globToRegex:         globToRegex,
-        options:             {pageSize: 25}
+        options:             {pageSize: scvConfig.termList.pageSize || 40}
     };
 })();
