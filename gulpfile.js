@@ -18,6 +18,8 @@ var cfg = require(configFile);
 
 gutil.log("using config " +configFile);
 
+var commonCfg = require('./config/tpl/common.js');
+
 var headerFields = (function(){
     var lis = _.map(cfg.termList.fields, function(field) {
         return '<th field-name="' +field.name+ '" enable-filtering="true"></th>';
@@ -45,6 +47,9 @@ gulp.task('default', ['genConfig'], function(){
 });
 
 gulp.task('genConfig', function(cb) {
+    if (cfg.mapping === undefined) {
+        cfg.mapping = commonCfg.mapping;
+    }
     fs.writeFile("app/js/config.js", "var vrowserConfig = " + JSON.stringify(cfg, null, '  ') + ";", function (err) {
         cb(err);
     });
