@@ -36,7 +36,7 @@ module.exports = {
         termListQuery:
             "prefix vocb: <{{voc.prefix}}>\n" +
             "prefix skos: <http://www.w3.org/2004/02/skos/core#>\n" +
-            "select distinct ?name ?definition ?reference ?units\n" +
+            "select distinct ?name ?definition ?title ?images\n" +
             "where {\n" +
             "  ?name a vocb:Science.\n" +
             "  OPTIONAL { ?name vocb:Definition      ?definition }\n" +
@@ -46,7 +46,7 @@ module.exports = {
 
         termQueryTemplate:
             "prefix vocb: <{{voc.prefix}}>\n" +
-            "select distinct ?definition ?reference ?units where {\n" +
+            "select distinct ?definition ?title ?images where {\n" +
             "  {{name}} a vocb:Science.\n" +
             "  OPTIONAL { {{name}} vocb:Definition      ?definition }\n" +
             "  OPTIONAL { {{name}} vocb:Title           ?title }\n" +
