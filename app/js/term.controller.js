@@ -23,11 +23,6 @@ angular.module('scv.term.controller', ['trNgGrid'])
 
 function getTermDetails($scope, cfg, dataService) {
     var workId = $scope.works.add("making term details query");
-    var htmlify = true;
-
-    function processContent(content) {
-        return htmlify ? vutil.htmlifyObject(content, dataService.cachedTermDict()) : _.escape(content);
-    }
 
     $scope.termDetails.searching = true;
     $scope.nercExternalLink = undefined;
@@ -55,16 +50,11 @@ function getTermDetails($scope, cfg, dataService) {
                 };
 
                 _.each(cfg.termList.fields, function(field, idx) {
-                   item[field.name] = processContent(termDetails[field.name]);
+                   item[field.name] = termDetails[field.name];
                 });
 
                 $scope.termDetails = item;
-//                $scope.termDetails = {
-//                    found:          true,
-//                    definition:     processContent(termDetails.definition),
-//                    canonicalUnits: processContent(termDetails.canonicalUnits),
-//                    orrUri:        '<a href="' +$scope.externalLink+ '">' + $scope.externalLink + '</a>'
-//                };
+
                 getMappings($scope, dataService, termUri, 'orr');
             }
             else {
@@ -102,9 +92,7 @@ function getMappings($scope, dataService, termUri, repo) {
                 }
 
                 //console.log("GOT objects", objects, "for predicate", pred.label);
-                $scope.mappingResults[repo][pred.predicate] = _.map(objects, function(o) {
-                    return vutil.mkExternalLink4Uri(o, true);
-                });
+                $scope.mappingResults[repo][pred.predicate] = objects;
             }
         });
     });

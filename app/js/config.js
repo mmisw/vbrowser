@@ -1,42 +1,34 @@
 var scvConfig = {
   "voc": {
-    "uri": "http://mmisw.org/ont/ioos/parameter",
-    "prefix": "http://mmisw.org/ont/ioos/parameter/"
+    "uri": "http://mmisw.org/ont/ooi_epe/science",
+    "prefix": "http://mmisw.org/ont/ooi_epe/science/"
   },
   "termList": {
     "fields": [
       {
-        "name": "term"
+        "name": "name"
       },
       {
-        "name": "definition"
+        "name": "Definition"
       },
       {
-        "name": "reference"
+        "name": "Title"
       },
       {
-        "name": "units"
+        "name": "Images"
       }
-    ]
+    ],
+    "pageSize": 60
   },
   "orr": {
     "name": "MMI ORR",
     "website": "http://mmisw.org/",
     "sparqlEndpoint": "http://mmisw.org/sparql",
     "generalInfoQuery": "prefix omvmmi: <http://mmisw.org/ont/mmi/20081020/ontologyMetadata/>\nprefix omv: <http://omv.ontoware.org/2005/05/ontology#>\nselect distinct ?name ?version\nwhere {\n  OPTIONAL { <{{voc.uri}}> omv:name      ?name}\n  OPTIONAL { <{{voc.uri}}> omv:version   ?version}\n}",
-    "termListQuery": "prefix vocb: <{{voc.prefix}}>\nprefix skos: <http://www.w3.org/2004/02/skos/core#>\nselect distinct ?term ?definition ?reference ?units\nwhere {\n  ?term a vocb:Parameter.\n  OPTIONAL { ?term vocb:Definition      ?definition }\n  OPTIONAL { ?term vocb:Reference       ?reference }\n  OPTIONAL { ?term vocb:Units           ?units }\n} order by ?term",
-    "termQueryTemplate": "prefix vocb: <{{voc.prefix}}>\nselect distinct ?definition ?reference ?units where {\n  {{name}} a vocb:Parameter.\n  OPTIONAL { {{name}} vocb:Definition      ?definition }\n  OPTIONAL { {{name}} vocb:Reference       ?reference }\n  OPTIONAL { {{name}} vocb:Units           ?units }\n}"
+    "termListQuery": "prefix vocb: <{{voc.prefix}}>\nprefix skos: <http://www.w3.org/2004/02/skos/core#>\nselect distinct ?name ?Definition ?Title ?Images\nwhere {\n  ?name a vocb:Science.\n  OPTIONAL { ?name vocb:Definition      ?Definition }\n  OPTIONAL { ?name vocb:Title           ?Title }\n  OPTIONAL { ?name vocb:Images          ?Images }\n} order by ?name",
+    "termQueryTemplate": "prefix vocb: <{{voc.prefix}}>\nselect distinct ?Definition ?Title ?Images where {\n  {{name}} a vocb:Science.\n  OPTIONAL { {{name}} vocb:Definition      ?Definition }\n  OPTIONAL { {{name}} vocb:Title           ?Title }\n  OPTIONAL { {{name}} vocb:Images          ?Images }\n}"
   },
-  "categories": [
-    {
-      "label": "Test category one",
-      "searchString": "gust"
-    },
-    {
-      "label": "Test category two",
-      "searchString": "wave"
-    }
-  ],
+  "categories": [],
   "mapping": {
     "predicates": [
       {

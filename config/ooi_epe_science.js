@@ -9,11 +9,11 @@ module.exports = {
         fields: [{
             name: 'name'
         }, {
-            name: 'definition'
+            name: 'Definition'
         }, {
-            name: 'title'
+            name: 'Title'
         }, {
-            name: 'images'
+            name: 'Images'
         }],
 
         pageSize: 60
@@ -36,21 +36,21 @@ module.exports = {
         termListQuery:
             "prefix vocb: <{{voc.prefix}}>\n" +
             "prefix skos: <http://www.w3.org/2004/02/skos/core#>\n" +
-            "select distinct ?name ?definition ?title ?images\n" +
+            "select distinct ?name ?Definition ?Title ?Images\n" +
             "where {\n" +
             "  ?name a vocb:Science.\n" +
-            "  OPTIONAL { ?name vocb:Definition      ?definition }\n" +
-            "  OPTIONAL { ?name vocb:Title           ?title }\n" +
-            "  OPTIONAL { ?name vocb:Images          ?images }\n" +
+            "  OPTIONAL { ?name vocb:Definition      ?Definition }\n" +
+            "  OPTIONAL { ?name vocb:Title           ?Title }\n" +
+            "  OPTIONAL { ?name vocb:Images          ?Images }\n" +
             "} order by ?name",
 
         termQueryTemplate:
             "prefix vocb: <{{voc.prefix}}>\n" +
-            "select distinct ?definition ?title ?images where {\n" +
+            "select distinct ?Definition ?Title ?Images where {\n" +
             "  {{name}} a vocb:Science.\n" +
-            "  OPTIONAL { {{name}} vocb:Definition      ?definition }\n" +
-            "  OPTIONAL { {{name}} vocb:Title           ?title }\n" +
-            "  OPTIONAL { {{name}} vocb:Images          ?images }\n" +
+            "  OPTIONAL { {{name}} vocb:Definition      ?Definition }\n" +
+            "  OPTIONAL { {{name}} vocb:Title           ?Title }\n" +
+            "  OPTIONAL { {{name}} vocb:Images          ?Images }\n" +
             "}"
     },
 

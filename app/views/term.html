@@ -5,12 +5,13 @@
         <div class="panel panel-default" style="border: 2px solid #8cacbb;">
           <div class="panel-heading" style="background-color: #ffffff;">
               <h4>{{termName}}</h4>
+              <!--<h4>{{externalLink}}</h4>-->
           </div>
 
             <table class="term">
-                <tr ng-repeat="field in cfg.termList.fields" >
+                <tr ng-repeat="field in cfg.termList.fields" ng-if="$index > 0">
                     <td style="font-weight: bold; vertical-align: text-top">{{field.name}}:</td>
-                    <td ng-bind-html="termDetails[field.name]"></td>
+                    <td ng-bind-html="termDetails[field.name] | mkExternalLinks"></td>
                 </tr>
             </table>
         </div>
@@ -35,12 +36,12 @@
                 <tr>
                     <td style="padding: 20px">
 
-                        <div class="btn-toolbar btn-group-xs">
+                        <div class="btn-toolbar btn-group">
                             <span style="font-weight: bold">Term URI:</span>
                             <a class="btn btn-default fa fa-external-link" target="_blank" ng-href="{{externalLink}}">{{externalLink}}</a>
                         </div>
-
-                        <div class="btn-toolbar btn-group-xs">
+                        <br/>
+                        <div class="btn-toolbar btn-group">
                             <span style="font-weight: bold">Formats:</span>
                             <a style="padding-left: 10px" class="fa fa-external-link" target="_blank" ng-href="{{externalLink + '?form=rdf'}}">rdf</a>
                             <a style="padding-left: 10px" class="fa fa-external-link" target="_blank" ng-href="{{externalLink + '?form=json'}}">json</a>
@@ -63,7 +64,7 @@
                                     </div>
                                     <ul>
                                         <li ng-repeat="object in mappingResults.orr[pred.predicate]">
-                                            <div ng-bind-html="object">
+                                            <div ng-bind-html="object | mkExternalLink4Uri">
                                             </div>
                                         </li>
                                     </ul>

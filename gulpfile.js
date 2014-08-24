@@ -28,7 +28,7 @@ var headerFields = (function(){
 var valueFields = (function(){
     var lis = _.map(cfg.termList.fields, function(field, idx) {
         var pipe = idx === 0 ? ' | htmlifyTerm:termListFilter'
-                 : ' | htmlifyDefinition:termListFilter';
+                 : ' | mkExternalLinks';
         return '<td field-name="' +field.name+ '">\n' +
                '  <div ng-bind-html="gridItem.' +field.name + pipe +'"></div>\n' +
                '</td>';

@@ -140,8 +140,8 @@ table.links2 tr {
 }
 
 
-a.stdname {
-    color: steelblue;
+a.vocname {
+    color: royalblue;
 }
 
 a.search {
@@ -257,4 +257,8 @@ td.generalInfoSect {
 /* a link along with icon for external link */
 span.uriAndExternal {
     white-space: nowrap;
+}
+
+a.external {
+    color: #f000ff;
 }
