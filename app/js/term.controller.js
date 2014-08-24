@@ -1,7 +1,7 @@
 (function() {
 'use strict';
 
-angular.module('scv.term.controller', ['trNgGrid'])
+angular.module('vrowser.term.controller', ['trNgGrid'])
 
     .controller('TermCtrl', ['$scope', '$routeParams', 'cfg', 'dataService', 'Works',
         function ($scope, $routeParams, cfg, dataService, Works) {
@@ -14,7 +14,7 @@ angular.module('scv.term.controller', ['trNgGrid'])
 
             $scope.termDetails = {};
 
-            prepareMappings($scope);
+            prepareMappings($scope, cfg);
 
             getTermDetails($scope, cfg, dataService);
         }])
@@ -39,8 +39,8 @@ function getTermDetails($scope, cfg, dataService) {
             }
 
             if (termDetails) {
-                console.log('termDetails', termDetails);
-                var termUri = scvConfig.voc.prefix + $scope.termName;
+                //console.log('termDetails', termDetails);
+                var termUri = cfg.voc.prefix + $scope.termName;
                 $scope.externalLink = termUri;
 
 
@@ -55,7 +55,7 @@ function getTermDetails($scope, cfg, dataService) {
 
                 $scope.termDetails = item;
 
-                getMappings($scope, dataService, termUri, 'orr');
+                getMappings($scope, cfg, dataService, termUri, 'orr');
             }
             else {
                 $scope.termDetails = {found: false};
@@ -66,8 +66,8 @@ function getTermDetails($scope, cfg, dataService) {
     });
 }
 
-function prepareMappings($scope) {
-    $scope.mappingPredicates = scvConfig.mapping.predicates;
+function prepareMappings($scope, cfg) {
+    $scope.mappingPredicates = cfg.mapping.predicates;
 
     $scope.mappingResults = {orr: {}};
     _.each($scope.mappingPredicates, function(pred) {
@@ -77,10 +77,10 @@ function prepareMappings($scope) {
 
 }
 
-function getMappings($scope, dataService, termUri, repo) {
-    var sparqlEndpoint = scvConfig[repo].sparqlEndpoint;
+function getMappings($scope, cfg, dataService, termUri, repo) {
+    var sparqlEndpoint = cfg[repo].sparqlEndpoint;
     var workId = $scope.works.add("making mapping queries");
-    _.each(scvConfig.mapping.predicates, function(pred) {
+    _.each(cfg.mapping.predicates, function(pred) {
         $scope.works.update(workId, "making mapping query for " + pred.label);
         $scope.mappingResults[repo][pred.predicate].searching = true;
         dataService.getMappings(termUri, pred.queryTemplate, sparqlEndpoint, {

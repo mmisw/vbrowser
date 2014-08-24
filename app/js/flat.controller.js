@@ -1,7 +1,7 @@
 (function() {
 'use strict';
 
-angular.module('scv.flat.controller', [])
+angular.module('vrowser.flat.controller', [])
     .controller('FlatCtrl', FlatCtrl)
 ;
 
@@ -34,7 +34,7 @@ function FlatCtrl($scope, cfg, dataService, Works) {
                 var item = {};
                 _.each(cfg.termList.fields, function(field, idx) {
                     var value = term[field.name];
-                    item[field.name] = _.escape(idx === 0 ? vutil.getTermName(value) : value);
+                    item[field.name] = _.escape(idx === 0 ? vutil.getTermName(value, cfg.voc.prefix) : value);
                 });
                 return item;
             });

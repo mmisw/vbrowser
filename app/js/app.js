@@ -1,21 +1,21 @@
 (function() {
 'use strict';
 
-angular.module('scv', [
+angular.module('vrowser', [
         //'ui.bootstrap',
         'ngRoute',
         'ngSanitize',
         'ngCookies',
-        'scv.data',
-        'scv.filters',
-        'scv.main.controller',
-        'scv.term.controller',
-        'scv.flat.controller'
+        'vrowser.data',
+        'vrowser.filters',
+        'vrowser.main.controller',
+        'vrowser.term.controller',
+        'vrowser.flat.controller'
     ])
 
     .value('version', '0.0.1')
 
-    .constant('cfg', scvConfig)
+    .constant('cfg', vrowserConfig)
 
     .run(startApp)
 
@@ -115,18 +115,18 @@ angular.module('scv', [
 
 ;
 
-startApp.$inject = ['$cookies', '$rootScope', '$location', '$window', 'Works'];
+startApp.$inject = ['$cookies', '$rootScope', '$location', '$window', 'cfg', 'Works'];
 
-function startApp($cookies, $rootScope, $location, $window, Works) {
+function startApp($cookies, $rootScope, $location, $window, cfg, Works) {
     //console.log("startApp");
-    $rootScope.cfg = scvConfig;
+    $rootScope.cfg = cfg;
 
     $rootScope.$on('$routeChangeStart', function(event) {
         // crear errors:
         Works.errors.removeAll();
     });
 
-    if ($cookies.mmisw_scv_noga) {
+    if ($cookies.mmisw_vrowser_noga) {
         console.log("not enabling ga per cookie");
         return;
     }

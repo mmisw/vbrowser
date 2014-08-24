@@ -7,13 +7,12 @@ var vutil = (function() {
         getTermName:         getTermName,
         cleanQuotes:         cleanQuotes,
         globToRegex:         globToRegex,
-        options:             {pageSize: scvConfig.termList.pageSize || 40}
+        options:             {pageSize: undefined}
     };
 
     // removes the prefix
-    function getTermName(name) {
+    function getTermName(name, prefix) {
         var termName = name.replace(/^<(.*)>$/, '$1');
-        var prefix = scvConfig.voc.prefix;
         if (termName.indexOf(prefix) == 0) {
             termName = termName.substring(prefix.length);
         }

@@ -1,7 +1,7 @@
 (function() {
 'use strict';
 
-angular.module('scv.filters', [])
+angular.module('vrowser.filters', [])
   .filter('interpolate', interpolateFilter)
 
   .filter('mkExternalLinks', mkExternalLinksFilter)
@@ -69,9 +69,10 @@ function mkExternalLink4UriFilter() {
     return mkExternalLink4Uri
 }
 
-function htmlifyTermFilter() {
+htmlifyTermFilter.$inject = ['cfg'];
+function htmlifyTermFilter(cfg) {
     return function(name, search) {
-        var termName = vutil.getTermName(name);
+        var termName = vutil.getTermName(name, cfg.voc.prefix);
         var text = termName;
         //// TODO, highlight search string
         //var re = new RegExp(search, 'gi');

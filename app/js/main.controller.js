@@ -1,20 +1,20 @@
 (function() {
 'use strict';
 
-angular.module('scv.main.controller', ['trNgGrid'])
+angular.module('vrowser.main.controller', ['trNgGrid'])
 
 .run(['$rootScope', 'dataService', 'Works', function($rootScope, dataService,  Works) {
         getGeneralInfo($rootScope, dataService);
     }])
 
-.controller('MainCtrl', ['$scope', '$routeParams', '$location', '$timeout', 'dataService', 'Works', 'focus',
-    function ($scope, $routeParams, $location, $timeout, dataService, Works, focus) {
+.controller('MainCtrl', ['$scope', '$routeParams', '$location', '$timeout', 'cfg', 'dataService', 'Works', 'focus',
+    function ($scope, $routeParams, $location, $timeout, cfg, dataService, Works, focus) {
 
         //console.log("trNgGridPager", angular.module('trNgGrid'));
 
         Works.works.removeAll();
         $scope.works = Works.works;
-        $scope.selCategories = _.map(scvConfig.categories, function(cat) {
+        $scope.selCategories = _.map(cfg.categories, function(cat) {
             return {label: cat.label, searchString: cat.searchString};
         });
         $scope.totalTerms = 0;
@@ -23,7 +23,7 @@ angular.module('scv.main.controller', ['trNgGrid'])
         parseRouteParams($scope, $routeParams);
         updateSearchVars($scope);
 
-        preparePageSize($scope, $timeout);
+        preparePageSize($scope, $timeout, cfg);
 
         $scope.stopPropagation = function($event) {
             // avoids dropdown getting closed
@@ -41,7 +41,7 @@ angular.module('scv.main.controller', ['trNgGrid'])
             }
         };
 
-        getTermList($scope, dataService, function() {
+        getTermList($scope, cfg, dataService, function() {
             setWatchers($scope, $location);
         });
 
@@ -132,8 +132,8 @@ function updateSearchVars($scope) {
     }
 }
 
-function preparePageSize($scope, $timeout) {
-    $scope.pageSize = vutil.options.pageSize;
+function preparePageSize($scope, $timeout, cfg) {
+    $scope.pageSize = vutil.options.pageSize || cfg.termList.pageSize || 40;
     $scope.pageSizeEnter = $scope.pageSize;
 
     function setSize(newSize) {
@@ -204,13 +204,16 @@ function searchSettingsChanged($scope, $location) {
     }
 }
 
-function filterByRegex(termList, regex, onlyOnTermName) {
+function filterByRegex(termList, regex, onlyOnTermName, cfg) {
     if (!regex || regex.length == 0) {
         return termList;
     }
+    // name of first field (corresponding to the term URI)
+    var name0 = cfg.termList.fields[0].name;
+
     //console.log("to apply regex", regex);
     termList = _.filter(termList, function(term) {
-        var termName = vutil.getTermName(term.name);
+        var termName = vutil.getTermName(name0, cfg.voc.prefix);
         return regex.test(termName)
             || !onlyOnTermName && (regex.test(term.definition) || regex.test(term.canonicalUnits));
     });
@@ -218,7 +221,7 @@ function filterByRegex(termList, regex, onlyOnTermName) {
     return termList;
 }
 
-function applyFilters($scope, termList) {
+function applyFilters($scope, cfg, termList) {
     var regex;
 
     // first, do filtering according to selected categories:
@@ -228,7 +231,7 @@ function applyFilters($scope, termList) {
     if (selectedCategories.length > 0) {
         var allParts = [];
         _.each(selectedCategories, function(cat) {
-            var catDef = _.find(scvConfig.categories, {label: cat.label});
+            var catDef = _.find(cfg.categories, {label: cat.label});
             allParts = allParts.concat(catDef.searchString.split(/\s+/));
         });
         allParts = _.uniq(allParts);
@@ -238,13 +241,13 @@ function applyFilters($scope, termList) {
         else {
             regex = _.map(allParts, function(part) { return '(' + part + ')' }).join('|');
         }
-        termList = filterByRegex(termList, new RegExp(regex, 'im'), true);
+        termList = filterByRegex(termList, new RegExp(regex, 'im'), true, cfg);
         $scope.numberAfterCategories = termList.length;
     }
 
     // now, by global field:
     $scope.numberAfterGlobalFilter = termList.length;
-    termList = filterByRegex(termList, $scope.searchRegex, false);
+    termList = filterByRegex(termList, $scope.searchRegex, false, cfg);
     $scope.numberAfterGlobalFilter = termList.length;
     return termList;
 }
@@ -265,7 +268,7 @@ function setWatchers($scope, $location) {
     });
 }
 
-function getTermList($scope, dataService, then) {
+function getTermList($scope, cfg, dataService, then) {
     var workId = $scope.works.add("making term list query");
 
     var gotTermList = function(error, termList) {
@@ -282,7 +285,7 @@ function getTermList($scope, dataService, then) {
 
         $scope.totalTerms = termList.length;
 
-        termList = applyFilters($scope, termList);
+        termList = applyFilters($scope, cfg, termList);
 
         $scope.termList = termList;
         $scope.works.remove(workId);

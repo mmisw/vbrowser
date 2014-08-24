@@ -1,11 +1,11 @@
 (function() {
 'use strict';
 
-angular.module('scv.data', []).factory('dataService', ['$http', function($http) {
+angular.module('vrowser.data', []).factory('dataService', ['$http', 'cfg', function($http, cfg) {
     return {
-        getGeneralInfo:   function(fns) { getGeneralInfo($http, fns); },
-        getTermList:      function(fns) { getTermList($http, fns); },
-        getTermDetails:   function(termName, fns) { getTermDetails($http, termName, fns); },
+        getGeneralInfo:   function(fns) { getGeneralInfo($http, cfg, fns); },
+        getTermList:      function(fns) { getTermList($http, cfg, fns); },
+        getTermDetails:   function(termName, fns) { getTermDetails($http, cfg, termName, fns); },
 
         getMappings:   function(termUri, queryTemplate, sparqlEndpoint, fns) {
                          getMappings($http, termUri, queryTemplate, sparqlEndpoint, fns); },
@@ -46,18 +46,18 @@ function httpErrorHandler(cb) {
     };
 }
 
-function getGeneralInfo($http, fns) {
+function getGeneralInfo($http, cfg, fns) {
     if (cache.generalInfo) {
         //console.log("generalInfo", cache.generalInfo, "in cache");
         fns.gotGeneralInfo(undefined, cache.generalInfo);
         return;
     }
 
-    var query = scvConfig.orr.generalInfoQuery.replace(/{{voc\.uri}}/g, scvConfig.voc.uri);
+    var query = cfg.orr.generalInfoQuery.replace(/{{voc\.uri}}/g, cfg.voc.uri);
 
     logQuery(query);
 
-    $http.get(scvConfig.orr.sparqlEndpoint, {params: {query: query}})
+    $http.get(cfg.orr.sparqlEndpoint, {params: {query: query}})
         .success(function (data, status, headers, config) {
             //console.log("getGeneralInfo: data= ", data);
             var names = data.names;
@@ -84,7 +84,7 @@ function getGeneralInfo($http, fns) {
         .error(httpErrorHandler(fns.gotGeneralInfo));
 }
 
-function getTermList($http, fns) {
+function getTermList($http, cfg, fns) {
 
     if (cache.termList) {
         //console.log("termList in cache");
@@ -92,11 +92,11 @@ function getTermList($http, fns) {
         return;
     }
 
-    var query = scvConfig.orr.termListQuery;
-    query = query.replace(/{{voc\.prefix}}/g, scvConfig.voc.prefix);
+    var query = cfg.orr.termListQuery;
+    query = query.replace(/{{voc\.prefix}}/g, cfg.voc.prefix);
     logQuery(query, 'termList');
 
-    $http.get(scvConfig.orr.sparqlEndpoint, {params: {query: query}})
+    $http.get(cfg.orr.sparqlEndpoint, {params: {query: query}})
         .success(function (data, status, headers, config) {
             //console.log("getTermList: data= ", data);
 
@@ -108,11 +108,11 @@ function getTermList($http, fns) {
             cache.termList = _.map(rows, function (e) {
                 var item = {};
 
-                _.each(scvConfig.termList.fields, function(ff, idx) {
+                _.each(cfg.termList.fields, function(ff, idx) {
                     item[ff.name] = e[idx] ? vutil.cleanQuotes(e[idx]) : "";
                 });
 
-                var termName = vutil.getTermName(e[0]);
+                var termName = vutil.getTermName(e[0], cfg.voc.prefix);
 
                 cache.termDict[termName] = item;
 
@@ -124,7 +124,7 @@ function getTermList($http, fns) {
         .error(httpErrorHandler(fns.gotTermList));
 }
 
-function getTermDetails($http, termName, fns) {
+function getTermDetails($http, cfg, termName, fns) {
 
     if (termName in cache.termDict) {
         //console.log("term", termName, "in cache");
@@ -133,15 +133,15 @@ function getTermDetails($http, termName, fns) {
         return;
     }
 
-    var termUri = '<' + scvConfig.voc.prefix + termName + '>';
-    var query = scvConfig.orr.termQueryTemplate.replace(/{{name}}/g, termUri);
-    query = query.replace(/{{voc\.prefix}}/g, scvConfig.voc.prefix);
+    var termUri = '<' + cfg.voc.prefix + termName + '>';
+    var query = cfg.orr.termQueryTemplate.replace(/{{name}}/g, termUri);
+    query = query.replace(/{{voc\.prefix}}/g, cfg.voc.prefix);
 
     logQuery(query);
 
-    $http.get(scvConfig.orr.sparqlEndpoint, {params: {query: query}})
+    $http.get(cfg.orr.sparqlEndpoint, {params: {query: query}})
         .success(function (data, status, headers, config) {
-            console.log("getTermDetails: data= ", data);
+            //console.log("getTermDetails: data= ", data);
             //var names = data.names;
             var rows = data.values;
 
@@ -149,9 +149,9 @@ function getTermDetails($http, termName, fns) {
 
                 var termDetails = {term: termUri};
 
-                var exceptFirst = _.clone(scvConfig.termList.fields);
+                var exceptFirst = _.clone(cfg.termList.fields);
                 exceptFirst.shift();
-                console.log("exceptFirst= ", exceptFirst);
+                //console.log("exceptFirst= ", exceptFirst);
                 _.each(exceptFirst, function(ff, idx) {
                     termDetails[ff.name] = rows[0][idx] ? vutil.cleanQuotes(rows[0][idx]) : "";
                 });

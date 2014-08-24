@@ -53,10 +53,10 @@ module.exports = {
     },
 
     categories: [{
-        label:        'Test category one',
-        searchString: 'gust'
+        label:        'Surface',
+        searchString: 'surface'
     }, {
-        label:        'Test category two',
+        label:        'Wave',
         searchString: 'wave'
     }],
 
