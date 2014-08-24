@@ -253,3 +253,8 @@ td.generalInfoSect {
 .highlight {
     background: yellow;
 }
+
+/* a link along with icon for external link */
+span.uriAndExternal {
+    white-space: nowrap;
+}

@@ -27,7 +27,7 @@ var vutil = (function () {
             + '<a class="fa fa-external-link" target="_blank" title="open directly in a new browser window" href="' + uri + '"></a>';
 
         //console.log("mklinks4uri:" +pre + "|" + link + "|" +post);
-        return pre + link + post;
+        return '<span class="uriAndExternal">' +pre + link + post+ '</span>';
     }
 
     function mklinks4uriNoBrackets(uri) {
