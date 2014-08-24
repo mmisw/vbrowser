@@ -1,8 +1,11 @@
 var gulp     = require('gulp');
 var gutil    = require('gulp-util');
 var replace  = require('gulp-replace');
+var rimraf   = require('rimraf');
+var zip      = require('gulp-zip');
 var _        = require('lodash');
 var fs       = require('fs');
+var path     = require('path');
 
 
 if (!gutil.env.config) {
@@ -53,4 +56,15 @@ gulp.task('genConfig', function(cb) {
     fs.writeFile("app/js/config.js", "var vrowserConfig = " + JSON.stringify(cfg, null, '  ') + ";", function (err) {
         cb(err);
     });
+});
+
+gulp.task('dist', ['default', 'clean-dist'], function(cb) {
+    var zipname = 'vrowser-' + path.basename(configFile, '.js') + '.zip';
+    return gulp.src(['app/**'])
+        .pipe(zip(zipname))
+        .pipe(gulp.dest('./dist'));
+});
+
+gulp.task('clean-dist', function(cb) {
+    rimraf('dist', cb);
 });
