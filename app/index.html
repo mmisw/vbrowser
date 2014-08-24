@@ -18,23 +18,24 @@
 
     <table style="width: 100%">
         <tr style="vertical-align: baseline">
-            <td>
+            <td style="width: 30px; padding-right: 12px">
                 <img src="img/orrlogo50.png" style="vertical-align: middle">
             </td>
             <td>
                 <table>
                     <tr>
                         <td>
-                            <span style="color: #0ebefa; font-size: large">
-                                {{generalInfo.orr.name}} – {{generalInfo.orr.version}}
-                            </span>
+                            <a href="#/" style="text-decoration: none">
+                                <span style="color: royalblue; font-size: large">
+                                    {{generalInfo.orr.name}}
+                                </span>
+                            </a>
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            <a href="#/" style="text-decoration: none">
-                                <span style="color: #0ebefa; font-size: large">{{cfg.voc.uri}}</span>
-                            </a>
+                        <td style="color: dimgray">
+                            <span style="font-size: large"> {{cfg.voc.uri}} </span>
+                            <span> ({{generalInfo.orr.version}})</span>
                         </td>
                     </tr>
                 </table>

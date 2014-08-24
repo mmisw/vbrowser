@@ -76,7 +76,7 @@ function htmlifyTermFilter() {
         //// TODO, highlight search string
         //var re = new RegExp(search, 'gi');
         //text = termName.replace(re, '<span class="highlight">$&</span>');
-        return '<a href="#/' + termName + '">' + text + '</a>';
+        return '<a class="termname" href="#/' + termName + '">' + text + '</a>';
     }
 }
 
