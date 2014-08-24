@@ -52,13 +52,18 @@ module.exports = {
             "}"
     },
 
-    categories: [{
-        label:        'Surface',
-        searchString: 'surface'
-    }, {
-        label:        'Wave',
-        searchString: 'wave'
-    }],
+    categoryFilter: {
+
+        //onlyOnTermName: true,  // false by default
+
+        categories: [{
+            label:        'Surface',
+            searchString: 'surface'
+        }, {
+            label:        'Wave',
+            searchString: 'wave'
+        }]
+    },
 
     mapping: {
         /*

@@ -14,9 +14,11 @@ angular.module('vrowser.main.controller', ['trNgGrid'])
 
         Works.works.removeAll();
         $scope.works = Works.works;
-        $scope.selCategories = _.map(cfg.categories, function(cat) {
-            return {label: cat.label, searchString: cat.searchString};
-        });
+        if (cfg.categoryFilter) {
+            $scope.selCategories = _.map(cfg.categoryFilter.categories, function(cat) {
+                return {label: cat.label, searchString: cat.searchString};
+            });
+        }
         $scope.totalTerms = 0;
         $scope.termList = [];
 
@@ -213,9 +215,20 @@ function filterByRegex(termList, regex, onlyOnTermName, cfg) {
 
     //console.log("to apply regex", regex);
     termList = _.filter(termList, function(term) {
-        var termName = vutil.getTermName(name0, cfg.voc.prefix);
-        return regex.test(termName)
-            || !onlyOnTermName && (regex.test(term.definition) || regex.test(term.canonicalUnits));
+        var termUri = term[name0];
+        var termName = vutil.getTermName(termUri, cfg.voc.prefix);
+        if (regex.test(termName)) {
+            return true;
+        }
+        if (!onlyOnTermName) {
+            for(var ii = 1; ii < cfg.termList.fields.length; ii++) {
+                var name = cfg.termList.fields[ii].name;
+                if (regex.test(term[name])) {
+                    return true;
+                }
+            }
+        }
+        return false;
     });
     console.log("after applying regex", regex, termList.length);
     return termList;
@@ -229,9 +242,11 @@ function applyFilters($scope, cfg, termList) {
     var selectedCategories = _.filter($scope.selCategories, "selected");
     //console.log("applyFilters selectedCategories", selectedCategories);
     if (selectedCategories.length > 0) {
+        var onlyOnTermName = !!cfg.categoryFilter.onlyOnTermName;
+
         var allParts = [];
         _.each(selectedCategories, function(cat) {
-            var catDef = _.find(cfg.categories, {label: cat.label});
+            var catDef = _.find(cfg.categoryFilter.categories, {label: cat.label});
             allParts = allParts.concat(catDef.searchString.split(/\s+/));
         });
         allParts = _.uniq(allParts);
@@ -241,7 +256,7 @@ function applyFilters($scope, cfg, termList) {
         else {
             regex = _.map(allParts, function(part) { return '(' + part + ')' }).join('|');
         }
-        termList = filterByRegex(termList, new RegExp(regex, 'im'), true, cfg);
+        termList = filterByRegex(termList, new RegExp(regex, 'im'), onlyOnTermName, cfg);
         $scope.numberAfterCategories = termList.length;
     }
 

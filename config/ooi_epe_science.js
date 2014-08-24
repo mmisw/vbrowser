@@ -54,8 +54,6 @@ module.exports = {
             "}"
     },
 
-    categories: [],
-
     mapping: {
         /*
          * Note: we do UNIONs below to not necessarily rely on inference

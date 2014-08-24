@@ -45,7 +45,7 @@ gulp.task('default', ['genConfig'], function(){
 });
 
 gulp.task('genConfig', function(cb) {
-    fs.writeFile("app/js/config.js", "var vrowserConfig = " + JSON.stringify(cfg, null, '  '), function (err) {
+    fs.writeFile("app/js/config.js", "var vrowserConfig = " + JSON.stringify(cfg, null, '  ') + ";", function (err) {
         cb(err);
     });
 });
