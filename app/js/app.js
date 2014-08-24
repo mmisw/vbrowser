@@ -13,7 +13,7 @@ angular.module('vrowser', [
         'vrowser.flat.controller'
     ])
 
-    .value('version', '0.0.1')
+    .value('version', '0.0.2')
 
     .constant('cfg', vrowserConfig)
 
