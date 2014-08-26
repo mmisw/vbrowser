@@ -1,7 +1,7 @@
 (function() {
 'use strict';
 
-angular.module('vrowser.main.controller', ['trNgGrid'])
+angular.module('vbrowser.main.controller', ['trNgGrid'])
 
 .run(['$rootScope', 'dataService', 'Works', function($rootScope, dataService,  Works) {
         getGeneralInfo($rootScope, dataService);

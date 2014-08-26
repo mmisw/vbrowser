@@ -1,7 +1,7 @@
 (function() {
 'use strict';
 
-angular.module('vrowser.term.controller', ['trNgGrid'])
+angular.module('vbrowser.term.controller', ['trNgGrid'])
 
     .controller('TermCtrl', ['$scope', '$routeParams', 'cfg', 'dataService', 'Works',
         function ($scope, $routeParams, cfg, dataService, Works) {

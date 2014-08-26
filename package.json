@@ -1,9 +1,9 @@
 {
-  "name": "vrowser",
+  "name": "vbrowser",
   "version": "0.0.2",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mmisw/vrowser.git"
+    "url": "https://github.com/mmisw/vbrowser.git"
   },
   "devDependencies": {
     "gulp": "~3.5.0",

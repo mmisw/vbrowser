@@ -1,7 +1,7 @@
 (function() {
 'use strict';
 
-angular.module('vrowser.data', []).factory('dataService', ['$http', 'cfg', function($http, cfg) {
+angular.module('vbrowser.data', []).factory('dataService', ['$http', 'cfg', function($http, cfg) {
     return {
         getGeneralInfo:   function(fns) { getGeneralInfo($http, cfg, fns); },
         getTermList:      function(fns) { getTermList($http, cfg, fns); },

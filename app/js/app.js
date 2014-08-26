@@ -1,21 +1,21 @@
 (function() {
 'use strict';
 
-angular.module('vrowser', [
+angular.module('vbrowser', [
         //'ui.bootstrap',
         'ngRoute',
         'ngSanitize',
         'ngCookies',
-        'vrowser.data',
-        'vrowser.filters',
-        'vrowser.main.controller',
-        'vrowser.term.controller',
-        'vrowser.flat.controller'
+        'vbrowser.data',
+        'vbrowser.filters',
+        'vbrowser.main.controller',
+        'vbrowser.term.controller',
+        'vbrowser.flat.controller'
     ])
 
     .value('version', '0.0.2')
 
-    .constant('cfg', vrowserConfig)
+    .constant('cfg', vbrowserConfig)
 
     .run(startApp)
 
@@ -126,7 +126,7 @@ function startApp($cookies, $rootScope, $location, $window, cfg, Works) {
         Works.errors.removeAll();
     });
 
-    if ($cookies.mmisw_vrowser_noga) {
+    if ($cookies.mmisw_vbrowser_noga) {
         console.log("not enabling ga per cookie");
         return;
     }

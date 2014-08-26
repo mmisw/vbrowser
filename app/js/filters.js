@@ -1,7 +1,7 @@
 (function() {
 'use strict';
 
-angular.module('vrowser.filters', [])
+angular.module('vbrowser.filters', [])
   .filter('interpolate', interpolateFilter)
 
   .filter('mkExternalLinks', mkExternalLinksFilter)

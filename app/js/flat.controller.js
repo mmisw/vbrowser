@@ -1,7 +1,7 @@
 (function() {
 'use strict';
 
-angular.module('vrowser.flat.controller', [])
+angular.module('vbrowser.flat.controller', [])
     .controller('FlatCtrl', FlatCtrl)
 ;
 

@@ -53,13 +53,13 @@ gulp.task('genConfig', function(cb) {
     if (cfg.mapping === undefined) {
         cfg.mapping = commonCfg.mapping;
     }
-    fs.writeFile("app/js/config.js", "var vrowserConfig = " + JSON.stringify(cfg, null, '  ') + ";", function (err) {
+    fs.writeFile("app/js/config.js", "var vbrowserConfig = " + JSON.stringify(cfg, null, '  ') + ";", function (err) {
         cb(err);
     });
 });
 
 gulp.task('dist', ['default', 'clean-dist'], function(cb) {
-    var zipname = 'vrowser-' + path.basename(configFile, '.js') + '.zip';
+    var zipname = 'vbrowser-' + path.basename(configFile, '.js') + '.zip';
     return gulp.src(['app/**'])
         .pipe(zip(zipname))
         .pipe(gulp.dest('./dist'));
