@@ -48,4 +48,5 @@ Some examples deployed:
 - https://mmisw.org/experimental/vbrowser/ioos_param/
 - https://mmisw.org/experimental/vbrowser/ooi_epe_science/
 - https://mmisw.org/experimental/vbrowser/cfsn/
+- https://mmisw.org/experimental/vbrowser/cfat/
 
