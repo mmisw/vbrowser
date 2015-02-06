@@ -17,8 +17,8 @@ module.exports = {
 
     orr: {
         name:           'MMI ORR',
-        website:        'http://mmisw.org/',
-        sparqlEndpoint: 'http://mmisw.org/sparql',
+        website:        'https://mmisw.org/',
+        sparqlEndpoint: 'https://mmisw.org/sparql',
 
         generalInfoQuery:
             "prefix omvmmi: <http://mmisw.org/ont/mmi/20081020/ontologyMetadata/>\n" +

@@ -35,7 +35,7 @@ open [http://localhost:8080/app/](http://localhost:8080/app/)
 
 Some examples deployed:
 
-- http://mmisw.org/experimental/vbrowser/ioos_param/
-- http://mmisw.org/experimental/vbrowser/ooi_epe_science/
-- http://mmisw.org/experimental/vbrowser/cf/
+- https://mmisw.org/experimental/vbrowser/ioos_param/
+- https://mmisw.org/experimental/vbrowser/ooi_epe_science/
+- https://mmisw.org/experimental/vbrowser/cf/
 
