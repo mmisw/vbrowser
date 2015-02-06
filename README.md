@@ -18,7 +18,7 @@ See configuration examples under `config/`.
 Example of setting up a browser for a particular vocabulary:
 
 ```shell
-$ gulp --config  ./config/ooi_epe_science.js
+$ gulp --config  ./config/ioos_param.js
 ```
 
 Then open `app/index.html` in your browser. Using a local http server to serve 
@@ -31,6 +31,16 @@ Hit CTRL-C to stop the server
 ```
 
 open [http://localhost:8080/app/](http://localhost:8080/app/)
+
+### Generating archive for deployment
+
+Example of generating a distribution for deployment:
+
+```shell
+$ gulp dist --config  ./config/ioos_param.js
+```
+
+Then copy and expand `dist/vbrowser-ioos_param.zip` on target location.
 
 
 Some examples deployed:
