@@ -58,7 +58,7 @@ gulp.task('genConfig', function(cb) {
     });
 });
 
-gulp.task('dist', ['default', 'clean-dist'], function(cb) {
+gulp.task('dist', ['default'], function(cb) {
     var zipname = 'vbrowser-' + path.basename(configFile, '.js') + '.zip';
     return gulp.src(['app/**'])
         .pipe(zip(zipname))
