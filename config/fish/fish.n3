@@ -1,0 +1,11 @@
+@prefix :        <http://mmisw.org/ont/test/fish/> .
+@prefix dbp:     <http://dbpedia.org/resource/> .
+@prefix eol:     <http://eol.org/data_objects/> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Red-bellied_piranha
+      rdfs:label   "Red-bellied piranha" ;
+      :dbpediaRef  dbp:Red-bellied_piranha ;
+      :dbpediaDef  "The red-bellied piranha or red piranha (Pygocentrus nattereri) is a species of piranha native to South America, found in the Amazon River Basin, coastal rivers of northeastern Brazil, and the basins of the Paraguay and Paraná. They are omnivorous foragers and feed on insects, worms, crustaceans and fish. They are not a migratory species, but do travel to seek out conditions conducive to breeding and spawning during periods of increased rainfall." ;
+      :eolRef      eol:24743947 ;
+      :eolDef      "The red-bellied piranha or red piranha (Pygocentrus nattereri) is a species of piranha native to South America, found in the Amazon River Basin, coastal rivers of northeastern Brazil, and the basins of the Paraguay and Paraná.[1] The red-bellied piranha has a popular reputation as a ferocious predator, despite being primarily scavengers.[2] As their name suggests, red-bellied piranhas have a reddish tinge to the belly when fully grown, although juveniles are a silver colour with darker spots. They grow to a maximum length of 33 centimetres (13 in) and a weight of 3.5 kilograms (7.7 lb). The way to distinguish males from females is that the female has a slightly deeper color of red on her belly." .

@@ -1,4 +1,11 @@
 2016-03-16
+- add `fish.{n3,js}` to illustrate how #1 could be addressed.
+    - `fish.n3` registered at the ORR: http://mmisw.org/ont/test/fish
+    - `fish.js` as the configuration with the 1+4 columns
+    - distribution created with:
+      `$ gulp dist --config  ./config/fish/fish.js`
+    - deployed at https://mmisw.org/experimental/vbrowser/fish/
+
 - adjust template replacements
 - avoid initial temporary display of unresolved `{{...}}` angular expressions
 - other minor adjustments
