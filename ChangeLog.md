@@ -1,4 +1,5 @@
 2016-03-16
+- adjust template replacements
 - avoid initial temporary display of unresolved `{{...}}` angular expressions
 - other minor adjustments
 
