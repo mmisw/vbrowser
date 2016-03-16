@@ -10,72 +10,75 @@
   <link rel="stylesheet" type="text/css" href="vendor/trNgGrid/beta/src/css/trNgGrid.css">
   <link rel="stylesheet" href="css/app.css"/>
 
-    <!--[if lt IE 9]>
-    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+  <!--[if lt IE 9]>
+  <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
 </head>
 <body>
 
-    <table style="width: 100%">
-        <tr style="vertical-align: baseline">
-            <td style="width: 30px; padding-right: 12px">
-                <img src="img/orrlogo50.png" style="vertical-align: middle">
-            </td>
-            <td>
-                <table>
-                    <tr>
-                        <td>
-                            <a href="#/" style="text-decoration: none">
-                                <span style="color: royalblue; font-size: large">
-                                    {{generalInfo.orr.name}}
-                                </span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="color: dimgray">
-                            <span style="font-size: large"> {{cfg.voc.uri}} </span>
-                            <span style="color: #979797; font-size: small"> ({{generalInfo.orr.version}})</span>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-            <td style="width: 10px">
-                <a style="color: #e1f3fa" href="https://github.com/mmisw/vbrowser"
-                   target="_blank" title="GitHub repo">vbrowser&nbsp;<span app-version></span></a>
-            </td>
+<table style="width: 100%">
+  <tr style="vertical-align: baseline">
+    <td style="width: 30px; padding-right: 12px">
+      <img src="img/orrlogo50.png" style="vertical-align: middle">
+    </td>
+    <td>
+      <table>
+        <tr>
+          <td>
+            <a href="#/" style="text-decoration: none">
+              <span style="color: royalblue; font-size: large"
+                    ng-bind="generalInfo.orr.name">
+              </span>
+            </a>
+          </td>
         </tr>
-    </table>
+        <tr>
+          <td style="color: dimgray">
+            <span style="font-size: large"
+                  ng-bind="cfg.voc.uri">
+            </span>
+            <span style="color: #979797; font-size: small"
+                  ng-bind="'(' + generalInfo.orr.version + ')'"></span>
+          </td>
+        </tr>
+      </table>
+    </td>
+    <td style="width: 10px">
+      <a style="color: #e1f3fa" href="https://github.com/mmisw/vbrowser"
+         target="_blank" title="GitHub repo">vbrowser&nbsp;<span app-version></span></a>
+    </td>
+  </tr>
+</table>
 
 
-  <div class="status" ng-show="works.any()">
-      <div class="loading" ng-bind="works.any()"></div>
-  </div>
-  <div class="alert alert-warning" role="alert"
-      ng-show="errors.any()" ng-bind-html="errors.any()">
-  </div>
+<div class="status" ng-show="works.any()">
+  <div class="loading" ng-bind="works.any()"></div>
+</div>
+<div class="alert alert-warning" role="alert"
+     ng-show="errors.any()" ng-bind-html="errors.any()">
+</div>
 
-  <div ng-view></div>
+<div ng-view></div>
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-route.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-sanitize.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-cookies.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-route.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-sanitize.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-cookies.js"></script>
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
 
-  <script src="vendor/trNgGrid/beta/src/js/trNgGrid.js"></script>
+<script src="vendor/trNgGrid/beta/src/js/trNgGrid.js"></script>
 
-  <script src="js/config.js"></script>
-  <script src="js/app.js"></script>
-  <script src="js/data.js"></script>
-  <script src="js/main.controller.js"></script>
-  <script src="js/term.controller.js"></script>
-  <script src="js/flat.controller.js"></script>
-  <script src="js/filters.js"></script>
-  <script src="js/util.js"></script>
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script src="js/data.js"></script>
+<script src="js/main.controller.js"></script>
+<script src="js/term.controller.js"></script>
+<script src="js/flat.controller.js"></script>
+<script src="js/filters.js"></script>
+<script src="js/util.js"></script>
 
 </body>
 </html>
