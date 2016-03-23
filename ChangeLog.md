@@ -10,7 +10,7 @@
 - avoid initial temporary display of unresolved `{{...}}` angular expressions
 - other minor adjustments
 
-2014-02-05
+2015-02-05
 - run well when served with https
 
 2014-08-14
